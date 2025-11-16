@@ -8,5 +8,9 @@
     "code": "FREE-ACCESS-FOREVER",
     "expirationDate": "9999-12-31T23:59:59.000Z",
     "xCode": "f3ae8958fcfcf4844569db5b93deff52fc08421b9f63f1f4c5419fdd63ca5c45"
+  },
+  {
+    "code": "FOR-RAIN-TEST",
+    "expirationDate": "9999-12-31T23:59:59.000Z"
   }
 ]
