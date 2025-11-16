@@ -4,7 +4,9 @@
   "main": "server.js",
   "type": "module",
   "dependencies": {
-    "express": "^4.19.0",
-    "cors": "^2.8.5"
+    "@supabase/supabase-js": "^2.81.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.19.0"
   }
 }
