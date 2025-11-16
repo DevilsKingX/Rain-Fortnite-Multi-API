@@ -1,0 +1,12 @@
+[
+  {
+    "code": "ABC123-XYZ789",
+    "expirationDate": "2025-12-31T23:59:59.000Z",
+    "xCode": "asd"
+  },
+  {
+    "code": "FREE-ACCESS-FOREVER",
+    "expirationDate": "9999-12-31T23:59:59.000Z",
+    "xCode": "f3ae8958fcfcf4844569db5b93deff52fc08421b9f63f1f4c5419fdd63ca5c45"
+  }
+]
