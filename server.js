@@ -1,8 +1,13 @@
+import 'dotenv/config';
 import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(process.env.DATABASE_URL, process.env.DATABASE_KEY);
+
 
 const app = express();
 app.use(cors());
@@ -29,7 +34,7 @@ function signResponse(data) {
   return { ...data, signature };
 }
 
-app.post("/api/verifyAccessCode", (req, res) => {
+app.post("/api/verifyAccessCode", async (req, res) => {
   const { accessCode, xCode } = req.body;
 
   if (!accessCode || !xCode) {
@@ -41,7 +46,12 @@ app.post("/api/verifyAccessCode", (req, res) => {
     );
   }
 
-  const codeEntry = accessCodes.find(c => c.code === accessCode);
+  const { data: codeEntry } = await supabase
+    .from("access_codes")
+    .select("*")
+    .eq("code", accessCode)
+    .single();
+
 
   if (!codeEntry) {
     return res.json(
@@ -53,7 +63,9 @@ app.post("/api/verifyAccessCode", (req, res) => {
   }
 
   const now = new Date();
-  const expirationDate = new Date(codeEntry.expirationDate);
+const expirationRaw = codeEntry.expirationDate || codeEntry.expiration_date;
+
+const expirationDate = new Date(String(expirationRaw).trim());
 
   if (expirationDate < now) {
     return res.json(
@@ -79,7 +91,8 @@ app.post("/api/verifyAccessCode", (req, res) => {
       })
     );
   }
-
+  
+console.log("expirationDate from db:", codeEntry.expiration_date);
   // Success response
   const responseData = {
     valid: true,
